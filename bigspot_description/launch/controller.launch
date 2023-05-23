@@ -1,0 +1,9 @@
+<launch>
+
+<rosparam file="$(find bigspot_description)/launch/controller.yaml" command="load"/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="bigspot" args="FLS_Joint_position_controller FRS_Joint_position_controller RRS_Joint_position_controller RLS_Joint_position_controller RLL_Joint_position_controller RRL_Joint_position_controller FRL_Joint_position_controller FLL_Joint_position_controller FRF_Joint_position_controller RRF_Joint_position_controller FLF_Joint_position_controller RLF_Joint_position_controller joint_state_controller "/>
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+  <remap from="/joint_states" to="/bigspot/joint_states"/>
+</node>
+
+</launch>

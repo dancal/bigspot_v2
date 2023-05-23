@@ -1,0 +1,504 @@
+<?xml version="1.0" ?>
+<robot name="bigspot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find bigspot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find bigspot_description)/urdf/bigspot.trans" />
+<xacro:include filename="$(find bigspot_description)/urdf/bigspot.gazebo" />
+
+<xacro:property name="effort_limit" value="200.0" />
+<xacro:property name="velocity_limit" value="18.0" />
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-0.0009585713066291645 0.01566146556206189 0.8592262444371219" rpy="0 0 0"/>
+    <mass value="2.8217492154730257"/>
+    <inertia ixx="0.353547" iyy="0.035853" izz="0.381376" ixy="3e-06" iyz="0.0" ixz="2e-06"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FLS_1">
+  <inertial>
+    <origin xyz="0.0001304498869832138 0.07986156198239636 0.0058999560520102134" rpy="0 0 0"/>
+    <mass value="0.24076917157226135"/>
+    <inertia ixx="0.000518" iyy="0.000229" izz="0.000312" ixy="-0.0" iyz="-8e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.122474 0.37193 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.122474 0.37193 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FRS_1">
+  <inertial>
+    <origin xyz="-0.00011519108512503262 0.07986156235957731 0.0058900101626147006" rpy="0 0 0"/>
+    <mass value="0.24076917157226135"/>
+    <inertia ixx="0.000518" iyy="0.000229" izz="0.000312" ixy="0.0" iyz="-8e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.120776 0.37193 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.120776 0.37193 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RRS_1">
+  <inertial>
+    <origin xyz="-0.00011519039677015952 -0.07986123686358904 0.005890010201520912" rpy="0 0 0"/>
+    <mass value="0.24076917157226135"/>
+    <inertia ixx="0.000518" iyy="0.000229" izz="0.000312" ixy="-0.0" iyz="8e-06" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.120776 -0.40307 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.120776 -0.40307 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RLS_1">
+  <inertial>
+    <origin xyz="0.00013044747611913599 -0.07986123724076377 0.005899958939119876" rpy="0 0 0"/>
+    <mass value="0.24076917157226135"/>
+    <inertia ixx="0.000518" iyy="0.000229" izz="0.000312" ixy="0.0" iyz="8e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.122474 -0.40307 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.122474 -0.40307 -0.827028" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLS_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RLL_1">
+  <inertial>
+    <origin xyz="-0.0885326544760905 0.0015299489118147935 -0.07697330151637105" rpy="0 0 0"/>
+    <mass value="1.2036627460151283"/>
+    <inertia ixx="0.026759" iyy="0.026778" izz="0.00207" ixy="3e-05" iyz="0.000485" ixz="-0.001743"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.110412 -0.318634 -0.833278" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.110412 -0.318634 -0.833278" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RRL_1">
+  <inertial>
+    <origin xyz="0.08852952826821368 0.0015179313821401808 -0.07704895059587691" rpy="0 0 0"/>
+    <mass value="1.2036627460151283"/>
+    <inertia ixx="0.02675" iyy="0.026769" izz="0.002069" ixy="-3e-05" iyz="0.000484" ixz="0.001744"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.108729 -0.318634 -0.833268" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.108729 -0.318634 -0.833268" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FRL_1">
+  <inertial>
+    <origin xyz="0.08852952826878983 0.0015179313821470641 -0.07704895059571804" rpy="0 0 0"/>
+    <mass value="1.2036627460151283"/>
+    <inertia ixx="0.02675" iyy="0.026769" izz="0.002069" ixy="-3e-05" iyz="0.000484" ixz="0.001744"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.108729 0.287494 -0.833268" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.108729 0.287494 -0.833268" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FLL_1">
+  <inertial>
+    <origin xyz="-0.08853265137627382 0.0015299489118031917 -0.07697330444256711" rpy="0 0 0"/>
+    <mass value="1.2036627460151283"/>
+    <inertia ixx="0.026759" iyy="0.026778" izz="0.00207" ixy="3e-05" iyz="0.000485" ixz="-0.001743"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.110412 0.287494 -0.833278" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.110412 0.287494 -0.833278" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLL_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FRF_1">
+  <inertial>
+    <origin xyz="0.0053878366111730636 0.020719772293756378 -0.16114379013970975" rpy="0 0 0"/>
+    <mass value="0.4781688142265008"/>
+    <inertia ixx="0.013398" iyy="0.013088" izz="0.000452" ixy="1.2e-05" iyz="-0.00074" ixz="0.000198"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.205029 0.27971 -0.427426" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.205029 0.27971 -0.427426" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RRF_1">
+  <inertial>
+    <origin xyz="0.005387836612206487 0.020719772293697813 -0.16114379014138225" rpy="0 0 0"/>
+    <mass value="0.4781688142265008"/>
+    <inertia ixx="0.013398" iyy="0.013088" izz="0.000452" ixy="1.2e-05" iyz="-0.00074" ixz="0.000198"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.205029 -0.326418 -0.427426" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.205029 -0.326418 -0.427426" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FLF_1">
+  <inertial>
+    <origin xyz="-0.005387577443135977 0.020719630263787814 -0.16114383065057347" rpy="0 0 0"/>
+    <mass value="0.4781688142265008"/>
+    <inertia ixx="0.013398" iyy="0.013088" izz="0.000452" ixy="-1.2e-05" iyz="-0.00074" ixz="-0.000198"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.206712 0.279683 -0.427437" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.206712 0.279683 -0.427437" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RLF_1">
+  <inertial>
+    <origin xyz="-0.005386969413025633 0.020719648566802973 -0.161143795841789" rpy="0 0 0"/>
+    <mass value="0.4781688142265008"/>
+    <inertia ixx="0.013398" iyy="0.013088" izz="0.000452" ixy="-1.2e-05" iyz="-0.00074" ixz="-0.000198"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.206712 -0.326445 -0.427437" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.206712 -0.326445 -0.427437" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FRFF_1">
+  <inertial>
+    <origin xyz="0.025550139352696594 0.002773442602720444 0.029726167395143745" rpy="0 0 0"/>
+    <mass value="0.02915224445440974"/>
+    <inertia ixx="6e-05" iyy="2.9e-05" izz="4.4e-05" ixy="-0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.197929 0.271954 -0.004271" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.197929 0.271954 -0.004271" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FRFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RRFF_1">
+  <inertial>
+    <origin xyz="0.025550139366327163 0.002773442603455467 0.029726167390148137" rpy="0 0 0"/>
+    <mass value="0.02915224445440974"/>
+    <inertia ixx="6e-05" iyy="2.9e-05" izz="4.4e-05" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.197929 -0.334174 -0.004271" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.197929 -0.334174 -0.004271" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RRFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="RLFF_1">
+  <inertial>
+    <origin xyz="-0.025549883406402102 0.0027733005837157765 0.029726129810652438" rpy="0 0 0"/>
+    <mass value="0.02915224445441185"/>
+    <inertia ixx="6e-05" iyy="2.9e-05" izz="4.4e-05" ixy="-0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.199612 -0.334201 -0.004282" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.199612 -0.334201 -0.004282" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/RLFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="FLFF_1">
+  <inertial>
+    <origin xyz="-0.025549880323568863 0.0027733005725133486 0.029726126884964933" rpy="0 0 0"/>
+    <mass value="0.02915224445441185"/>
+    <inertia ixx="6e-05" iyy="2.9e-05" izz="4.4e-05" ixy="0.0" iyz="1e-06" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.199612 0.271927 -0.004282" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.199612 0.271927 -0.004282" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://bigspot_description/meshes/FLFF_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="FLS_Joint" type="revolute">
+  <origin xyz="-0.122474 -0.37193 0.827028" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="FLS_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+  <limit upper="0.349066" lower="-0.349066" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FRS_Joint" type="revolute">
+  <origin xyz="0.120776 -0.37193 0.827028" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="FRS_1"/>
+  <axis xyz="0.0 1.0 -0.0"/>
+  <limit upper="0.349066" lower="-0.349066" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RRS_Joint" type="revolute">
+  <origin xyz="0.120776 0.40307 0.827028" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="RRS_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+  <limit upper="0.349066" lower="-0.349066" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RLS_Joint" type="revolute">
+  <origin xyz="-0.122474 0.40307 0.827028" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="RLS_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+  <limit upper="0.349066" lower="-0.349066" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RLL_Joint" type="revolute">
+  <origin xyz="0.012062 -0.084436 0.00625" rpy="0 0 0"/>
+  <parent link="RLS_1"/>
+  <child link="RLL_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-4.712389" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RRL_Joint" type="revolute">
+  <origin xyz="-0.012047 -0.084436 0.00624" rpy="0 0 0"/>
+  <parent link="RRS_1"/>
+  <child link="RRL_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-4.712389" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FRL_Joint" type="revolute">
+  <origin xyz="-0.012047 0.084436 0.00624" rpy="0 0 0"/>
+  <parent link="FRS_1"/>
+  <child link="FRL_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-4.712389" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FLL_Joint" type="revolute">
+  <origin xyz="0.012062 0.084436 0.00625" rpy="0 0 0"/>
+  <parent link="FLS_1"/>
+  <child link="FLL_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="0.0" lower="-4.712389" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FRF_Joint" type="revolute">
+  <origin xyz="0.0963 0.007784 -0.405842" rpy="0 0 0"/>
+  <parent link="FRL_1"/>
+  <child link="FRF_1"/>
+  <axis xyz="1.0 0.0 -0.0"/>
+  <limit upper="0.523599" lower="-3.001966" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RRF_Joint" type="revolute">
+  <origin xyz="0.0963 0.007784 -0.405842" rpy="0 0 0"/>
+  <parent link="RRL_1"/>
+  <child link="RRF_1"/>
+  <axis xyz="1.0 0.0 -0.0"/>
+  <limit upper="0.523599" lower="-3.001966" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FLF_Joint" type="revolute">
+  <origin xyz="-0.0963 0.007811 -0.405841" rpy="0 0 0"/>
+  <parent link="FLL_1"/>
+  <child link="FLF_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="3.001966" lower="-0.523599" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="RLF_Joint" type="revolute">
+  <origin xyz="-0.0963 0.007811 -0.405841" rpy="0 0 0"/>
+  <parent link="RLL_1"/>
+  <child link="RLF_1"/>
+  <axis xyz="-1.0 -0.0 0.0"/>
+  <limit upper="3.001966" lower="-0.523599" effort="${effort_limit}" velocity="${velocity_limit}"/>
+  <dynamics damping="0" friction="0"/>
+</joint>
+
+<joint name="FRFF_Joint" type="fixed">
+  <origin xyz="-0.0071 0.007756 -0.423155" rpy="0 0 0"/>
+  <parent link="FRF_1"/>
+  <child link="FRFF_1"/>
+  <dynamics damping="0" friction="1"/>
+</joint>
+
+<joint name="RRFF_Joint" type="fixed">
+  <origin xyz="-0.0071 0.007756 -0.423155" rpy="0 0 0"/>
+  <parent link="RRF_1"/>
+  <child link="RRFF_1"/>
+  <dynamics damping="0" friction="1"/>
+</joint>
+
+<joint name="RLFF_Joint" type="fixed">
+  <origin xyz="0.0071 0.007756 -0.423155" rpy="0 0 0"/>
+  <parent link="RLF_1"/>
+  <child link="RLFF_1"/>
+  <dynamics damping="0" friction="1"/>
+</joint>
+
+<joint name="FLFF_Joint" type="fixed">
+  <origin xyz="0.0071 0.007756 -0.423155" rpy="0 0 0"/>
+  <parent link="FLF_1"/>
+  <child link="FLFF_1"/>
+  <dynamics damping="0" friction="1"/>
+</joint>
+
+</robot>
