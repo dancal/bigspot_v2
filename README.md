@@ -3,7 +3,6 @@
 # roslaunch bigspot_joystick ramped_keyboard.launch
 # roslaunch bigspot_description controller_gazebo.launch
 
-
 ## real
 # roslaunch bigspot run_robot_real.launch
 # roslaunch bigspot_description controller.launch
@@ -14,9 +13,6 @@
 # roslaunch bigspot_lcd lcd.launch
 # roslaunch bigspot_rgb rgb.launch
 # roslaunch bigspot_ultrasonic ultrasonic.launch
-
-
-
 
 # apt-get install ros-noetic-joy
 # apt-get install ros-noetic-imu-tools

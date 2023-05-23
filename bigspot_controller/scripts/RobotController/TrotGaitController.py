@@ -34,8 +34,8 @@ class TrotGaitController(GaitController):
                                    [1, 0, 1, 1],  
                                    [1, 1, 1, 0]])
 
-        z_error_constant = 0.04 * 4    # This constant determines how fast we move
-                                       # toward the goal in the z direction
+        z_error_constant        = 0.04 * 4    # This constant determines how fast we move
+                                              # toward the goal in the z direction
         
 
         z_leg_lift = 0.6
@@ -57,8 +57,9 @@ class TrotGaitController(GaitController):
         # TODO: tune kp, ki and kd
         #                                     kp    ki    kd
         #self.pid_controller = PID_controller(0.01, 0.01, 0.001)
-        self.pid_controller = PID_controller(0.64, 2.28, 0.0)
+        #self.pid_controller = PID_controller(0.64, 2.28, 0.0)
         #self.pid_controller = PID_controller(10.75, 10.29, 1.0)
+        self.pid_controller     = PID_controller(0.0, 0.0, 0.0)
 
     @property
     def default_height(self):

@@ -127,8 +127,9 @@ class PS3Controller(object):
                             rospy.loginfo('START')
                             self.is_activated   = True
                             #self.axis_data      = [0.,0.,1.,0.,0.,1.,0.,0.]
-                            self.button_data    = [1,0,0,0,0,0,0,0,0,0,0]
-                            logMessage          = 'rest'
+                            #self.button_data    = [1,0,0,0,0,0,0,0,0,0,0]
+                            #logMessage          = 'rest'
+                            print("start = ", event.button)
 
                     if not self.is_activated:
                         rospy.loginfo('Press START/OPTIONS to enable the servos')

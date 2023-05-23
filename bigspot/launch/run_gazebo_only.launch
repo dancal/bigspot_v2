@@ -3,7 +3,7 @@
   <!-- Gazebo Simulation -->
   <!-- Empty World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find bigspot_description)/launch/world/normal.world"/>
+    <arg name="world_name" value="$(find bigspot_description)/launch/worlds/normal.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="false"/>
     <arg name="gui" value="true"/>
@@ -25,7 +25,7 @@
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
     <remap from="/joint_states" to="/bigspot/joint_states"/>
-     <param name="publish_frequency" type="double" value="1000.0"/>
+     <param name="publish_frequency" type="double" value="10.0"/>
   </node>
 
   <!-- Robot servo controller -->

@@ -11,23 +11,14 @@
   </plugin>
 </gazebo>
 
-<!-- base_link odometry -->
-<gazebo>
-  <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
-    <alwaysOn>true</alwaysOn>
-    <updateRate>50.0</updateRate>
-    <bodyName>trunk</bodyName>
-    <topicName>a1/odom</topicName>
-    <gaussianNoise>0.01</gaussianNoise>
-    <frameName>world</frameName>
-    <xyzOffsets>0 0 0</xyzOffsets>
-    <rpyOffsets>0 0 0</rpyOffsets>
-  </plugin>
-</gazebo>
-
 <!-- IMU sensor -->
+<!--
 <gazebo reference="base_link">
   <material>${body_color}</material>
+</gazebo>
+-->
+
+<gazebo reference="base_link">
   <gravity>true</gravity>
   <sensor name="imu_sensor" type="imu">
     <always_on>true</always_on>
@@ -36,7 +27,7 @@
     <topic>__default_topic__</topic>
     <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
       <topicName>bigspot_imu/base_link_orientation</topicName>
-      <bodyName>imu_link</bodyName>
+      <bodyName>MPU_fix</bodyName>
       <updateRateHZ>15.0</updateRateHZ>
       <gaussianNoise>0.0</gaussianNoise>
       <xyzOffset>0 0 0</xyzOffset>
@@ -46,7 +37,6 @@
     </plugin>
     <pose>0 0 0 0 0 0</pose>
   </sensor>
-
 </gazebo>
 
 <!-- Joint state publisher plugin -->
@@ -102,6 +92,7 @@
   </sensor>
 </gazebo>
 
+<!--
 <gazebo reference="display_screen_link">
   <visual>
     <plugin name="display_video_controller" filename="libgazebo_ros_video.so">
@@ -149,6 +140,7 @@
       </plugin>
    </sensor>  
 </gazebo>
+-->
 
 <gazebo reference="FRS_1">
   <material>${body_color}</material>

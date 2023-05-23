@@ -12,12 +12,12 @@ class CrawlGaitController(GaitController):
 
         self.body               = body
         self.legs               = legs
-
+                
         self.delta_x            = self.body[0] * 0.5
         self.delta_y            = self.body[1] * 0.5 + self.legs[1]
 
         self.x_shift_front      = 0.08
-        self.x_shift_back       = -0.22
+        self.x_shift_back       = -0.18
         self._default_height    = 0.82
         self._before_height     = self._default_height
 
@@ -29,7 +29,7 @@ class CrawlGaitController(GaitController):
         z_error_constant        = 0.04     # This constant determines how fast we move
                                     # toward the goal in the z axis
         
-        z_leg_lift              = 0.4
+        z_leg_lift              = 0.6
         
         self.state              = State(self.default_height, BehaviorState.CRAWL)
         self.command            = Command(self.default_height)
@@ -38,7 +38,7 @@ class CrawlGaitController(GaitController):
         self.max_x_velocity = 0.016 #[m/s]
         self.max_y_velocity = 0.02 #[m/s]
         self.max_yaw_rate   = 0.2 #[rad/s]
-        self.body_shift_y   = 0.025
+        self.body_shift_y   = 0.03
 
         self.swingController = CrawlSwingController(self.stance_ticks, self.swing_ticks, self.time_step, self.phase_length, z_leg_lift, self.default_stance, self.body_shift_y)
         self.stanceController = CrawlStanceController(self.phase_length, self.stance_ticks, self.swing_ticks, self.time_step, z_error_constant, self.body_shift_y)
@@ -79,8 +79,7 @@ class CrawlGaitController(GaitController):
                     move_sideways = False
                     move_left = False
 
-                new_location = self.stanceController.next_foot_location(leg_index,
-                    state, command, self.first_cycle, move_sideways, move_left)
+                new_location = self.stanceController.next_foot_location(leg_index,state, command, self.first_cycle, move_sideways, move_left)
             else:
                 swing_proportion = float(self.subphase_ticks(state.ticks)) / float(self.swing_ticks)
 
@@ -90,8 +89,7 @@ class CrawlGaitController(GaitController):
                 else:
                     shifted_left = False
 
-                new_location = self.swingController.next_foot_location(swing_proportion,
-                    leg_index, state, command, shifted_left)
+                new_location = self.swingController.next_foot_location(swing_proportion,leg_index, state, command, shifted_left)
 
             new_foot_locations[:, leg_index] = new_location
         return new_foot_locations
@@ -147,8 +145,7 @@ class CrawlSwingController(object):
 
         time_left = self.time_step * self.swing_ticks * (1.0 - swing_prop)
         
-        velocity = (touchdown_location - foot_location) / float(time_left) *\
-             np.array([1, 1, 0])     
+        velocity = (touchdown_location - foot_location) / float(time_left) * np.array([1, 1, 0])     
 
         delta_foot_location = velocity * self.time_step   
 
@@ -159,8 +156,7 @@ class CrawlSwingController(object):
     
 
 class CrawlStanceController(object):
-    def __init__(self,phase_length, stance_ticks, swing_ticks, time_step,
-            z_error_constant,body_shift_y):
+    def __init__(self,phase_length, stance_ticks, swing_ticks, time_step, z_error_constant,body_shift_y):
         self.phase_length = phase_length
         self.stance_ticks = stance_ticks
         self.swing_ticks = swing_ticks
@@ -168,18 +164,15 @@ class CrawlStanceController(object):
         self.z_error_constant = z_error_constant
         self.body_shift_y = body_shift_y
 
-    def position_delta(self, leg_index, state, command, first_cycle,
-            move_sideways, move_left):
+    def position_delta(self, leg_index, state, command, first_cycle, move_sideways, move_left):
         z = state.foot_locations[2, leg_index]
 
-        step_dist_x = command.velocity[0] *\
-                      (float(self.phase_length)/self.swing_ticks)
+        step_dist_x = command.velocity[0] *(float(self.phase_length)/self.swing_ticks)
 
         if first_cycle:
             shift_factor = 1
         else:
             shift_factor = 2
-
 
         side_vel = 0.0
         if move_sideways:
@@ -188,9 +181,7 @@ class CrawlStanceController(object):
             else:
                 side_vel = (self.body_shift_y*shift_factor)/(float(self.time_step)*self.stance_ticks)
 
-        velocity = np.array([-(step_dist_x/3)/(float(self.time_step)*self.stance_ticks), 
-                             side_vel, 
-                             1.0 / self.z_error_constant * (state.robot_height - z)])
+        velocity = np.array([-(step_dist_x/3)/(float(self.time_step)*self.stance_ticks), side_vel, 1.0 / self.z_error_constant * (state.robot_height - z)])
 
         delta_pos = velocity * self.time_step
         delta_ori = rotz(-command.yaw_rate * self.time_step)
@@ -198,7 +189,6 @@ class CrawlStanceController(object):
 
     def next_foot_location(self, leg_index, state, command, first_cycle, move_sideways, move_left):
         foot_location = state.foot_locations[:, leg_index]
-        (delta_pos, delta_ori) = self.position_delta(leg_index, state, command,
-            first_cycle, move_sideways, move_left)
+        (delta_pos, delta_ori) = self.position_delta(leg_index, state, command, first_cycle, move_sideways, move_left)
         next_foot_location = np.matmul(delta_ori, foot_location) + delta_pos
         return next_foot_location

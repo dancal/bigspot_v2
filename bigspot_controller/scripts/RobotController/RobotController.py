@@ -40,18 +40,35 @@ class Robot(object):
 
         self.motion                 = Motion()
 
-        self.currentController      = self.lieController
+        #self.currentController      = self.lieController
+        self.currentController      = self.restController
         self.state                  = self.currentController.state
         self.command                = self.currentController.command
         self.state.foot_locations   = self.currentController.default_stance
-        
+        self.state.behavior_state   = BehaviorState.REST
+
     def change_controller(self):
         before_robo_height          = self.currentController.default_height
         before_behavior_state       = self.currentController.state.behavior_state
-        if self.motion.rest_event:
-            
+
+        if self.motion.lie_event:
+            # LIE
             if before_behavior_state == BehaviorState.REST:
-                return
+                
+                self.currentController      = self.lieController
+                self.state                  = self.currentController.state
+                self.command                = self.currentController.command
+                self.state.foot_locations   = self.currentController.default_stance
+                self.state.behavior_state   = BehaviorState.LIE
+                self.state.ticks            = 0
+                self.currentController.slowInitStart(before_robo_height)
+
+            self.motion.lie_event  = False
+
+        elif self.motion.rest_event:
+            
+            #if before_behavior_state == BehaviorState.REST:
+            #    return
             
             # REST
             self.currentController      = self.restController
@@ -68,20 +85,6 @@ class Robot(object):
             
             self.motion.rest_event     = False
 
-        elif self.motion.lie_event:
-            # LIE
-            if before_behavior_state == BehaviorState.REST:
-                
-                self.currentController      = self.lieController
-                self.state                  = self.currentController.state
-                self.command                = self.currentController.command
-                self.state.foot_locations   = self.currentController.default_stance
-                self.state.behavior_state   = BehaviorState.LIE
-                self.state.ticks            = 0
-                self.currentController.slowInitStart(before_robo_height)
-
-            self.motion.lie_event  = False
-
         elif self.motion.trot_event:
             # TROT
             if before_behavior_state == BehaviorState.REST:
@@ -90,7 +93,7 @@ class Robot(object):
                 self.command                = self.currentController.command
                 self.state.foot_locations   = self.currentController.default_stance                
                 self.state.behavior_state   = BehaviorState.TROT
-                self.state.ticks = 0
+                self.state.ticks            = 0
 
                 self.currentController.pid_controller.reset()
 
@@ -168,6 +171,7 @@ class Robot(object):
         rpy_angles = tf.transformations.euler_from_quaternion([q.x,q.y,q.z,q.w])
         self.state.imu_roll = rpy_angles[0]
         self.state.imu_pitch = rpy_angles[1]
+        #print("imu_orientation = ", rpy_angles)
 
     def run(self):
         return self.currentController.run(self.state, self.command)

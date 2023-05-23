@@ -43,9 +43,9 @@ publishers = []
 for i in range(len(command_topics)):
     publishers.append(rospy.Publisher(command_topics[i], Float64, queue_size = 0))
 
-if USE_IMU:
-    rospy.Subscriber("bigspot_imu/base_link_orientation", Imu, bigspot_robot.imu_orientation)
+#if USE_IMU:
 
+rospy.Subscriber("bigspot_imu/base_link_orientation", Imu, bigspot_robot.imu_orientation)
 rospy.Subscriber("bigspot_joy/joy_ramped", Joy, bigspot_robot.joystick_command)
 #rospy.Subscriber("bigspot_ultrasonic/sonic_dist", Range, bigspot_robot.ultrasonic_command)
 
